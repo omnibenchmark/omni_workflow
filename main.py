@@ -1,4 +1,3 @@
-from src.helpers import *
 from src.converter import LinkMLConverter
 from src.model.benchmark import Benchmark
 
@@ -6,6 +5,7 @@ import os
 import argparse
 
 from src.validation import Validator, ValidationError
+from src.workflow.snakemake.snakemake import SnakemakeEngine
 
 
 ##
@@ -13,10 +13,8 @@ from src.validation import Validator, ValidationError
 ## Snakemake file generation happens in Snakefile and snakemake.py
 ##
 
-
 def main(benchmark_file):
-    benchmark_yaml = load_benchmark(benchmark_file)
-    converter = LinkMLConverter(benchmark_yaml)
+    converter = LinkMLConverter(benchmark_file)
     validator = Validator()
     converter = validator.validate(converter)
     benchmark = Benchmark(converter)
@@ -58,10 +56,14 @@ def main(benchmark_file):
 
     benchmark.plot_graph()
 
+    # Serialize workflow to Snakefile
+    workflow = SnakemakeEngine()
+    workflow.run_workflow(benchmark)
+
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description='Test OmniWorkflow converter.')
-    parser.add_argument('--benchmark_file', default='data/Benchmark_001',
+    parser.add_argument('--benchmark_file', default='data/Benchmark_001.yaml',
                         type=str, help='Location of the benchmark file')
 
     args = parser.parse_args()
@@ -71,7 +73,8 @@ if __name__ == "__main__":
         try:
             main(benchmark_file)
         except ValidationError as e:
-            print(f"Validation failed: \n {e}")
-
+            print("Validation failed: \n")
+            for error in e.errors:
+                print(error)
     else:
-        print(f'Benchmark file {benchmark_file} does not exist.')
+        raise RuntimeError(f'Benchmark file {benchmark_file} does not exist.')

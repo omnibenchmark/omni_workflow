@@ -3,8 +3,8 @@ install:
 	pipenv install -r requirements.txt
 activate:
 	pipenv shell
-test:
-	python main.py --benchmark_file=$(benchmark_file)
+serialize:
+	python main.py --benchmark_file=$(if $(benchmark_file),$(benchmark_file),'data/Benchmark_001.yaml')
 benchmark:
 	snakemake -p --cores 1
 dry:
@@ -12,4 +12,5 @@ dry:
 graph:
 	snakemake --dag | dot -Tpng > workflow_dag.png
 clean:
-	rm -rf ./out ./log ./data/D1 ./data/D2 workflow_dag.png output_dag.png
+	rm -f benchmark.pkl Snakefile
+	rm -rf ./in ./out ./log ./data/D1 ./data/D2 workflow_dag.png output_dag.png

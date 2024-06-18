@@ -1,9 +1,11 @@
+import os
 
 
-class SnakemakeConverterTrait:
+class ConverterTrait:
 
-    def __init__(self):
+    def __init__(self, benchmark_file):
         self.stage_order_map = None
+        self.benchmark_file = os.path.abspath(benchmark_file)
 
     def get_stage_id(self, stage):
         raise NotImplementedError("Method not implemented yet")
@@ -12,6 +14,9 @@ class SnakemakeConverterTrait:
         raise NotImplementedError("Method not implemented yet")
 
     def get_benchmark_definition(self):
+        raise NotImplementedError("Method not implemented yet")
+
+    def get_benchmark_definition_file(self):
         raise NotImplementedError("Method not implemented yet")
 
     def get_benchmark_stages(self):

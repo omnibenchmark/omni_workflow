@@ -68,6 +68,7 @@ steps:
         repo: omnibenchmark/test/seurat
     inputs:
       - entries: [
+          data.normalized,
           data.counts,
           data.meta
         ]

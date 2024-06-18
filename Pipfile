@@ -7,8 +7,7 @@ name = "pypi"
 snakemake = "==8.4.3"
 networkx = "*"
 matplotlib = "*"
-#omni-schema = "==0.0.1"
-omni-schema = {git = "https://github.com/omnibenchmark/omni-schema.git", editable = true, ref = "version 0.0.1"}
+omni-schema = {git = "https://github.com/omnibenchmark/omni-schema.git", editable = true, ref = "version/0.0.1"}
 linkml-runtime = ">=1.7.0"
 rdflib = "==7.0.0"
 pyyaml = "~=6.0.1"

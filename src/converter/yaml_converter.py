@@ -1,11 +1,11 @@
 import os
 import os.path as op
 
-from src.helpers import merge_dict_list
-from src.converter.converter import SnakemakeConverterTrait
+from src.utils.helpers import merge_dict_list
+from src.converter.converter import ConverterTrait
 
 
-class YamlConverter(SnakemakeConverterTrait):
+class YamlConverter(ConverterTrait):
     def __init__(self, config):
         super().__init__()
         self.config = config

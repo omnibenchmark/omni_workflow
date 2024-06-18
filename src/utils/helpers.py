@@ -14,8 +14,9 @@ def load_yaml_file(file_path):
             return None
 
 
-def load_benchmark(file_path):
+def load_yaml(file_path):
     benchmark = yaml_loader.load(file_path, model.Benchmark)
+
     return benchmark
 
 

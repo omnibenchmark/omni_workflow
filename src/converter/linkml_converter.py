@@ -1,11 +1,11 @@
-from src.converter.converter import SnakemakeConverterTrait
-from src.helpers import merge_dict_list
+from src.converter.converter import ConverterTrait
+from src.utils.helpers import merge_dict_list, load_yaml
 
 
-class LinkMLConverter(SnakemakeConverterTrait):
-    def __init__(self, benchmark):
-        super().__init__()
-        self.benchmark = benchmark
+class LinkMLConverter(ConverterTrait):
+    def __init__(self, benchmark_file):
+        super().__init__(benchmark_file)
+        self.benchmark = load_yaml(benchmark_file)
 
     def get_benchmark_definition(self):
         return self.benchmark
